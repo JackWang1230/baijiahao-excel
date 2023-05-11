@@ -4,9 +4,9 @@ from natsort import natsorted
 
 
 def read_excel():
-    # workbook = openpyxl.load_workbook('/Users/wangrui/Documents/coding/python/baojiahao/resources/123.xlsx')
-    workbook = openpyxl.load_workbook(
-        '/Users/wangrui/Documents/coding/python/baojiahao/resources/laoyao-say-history.xlsx')
+    workbook = openpyxl.load_workbook('/Users/wangrui/Documents/coding/python/baojiahao/resources/123.xlsx')
+    # workbook = openpyxl.load_workbook(
+    #     '/Users/wangrui/Documents/coding/python/baojiahao/resources/laoyao-say-history.xlsx')
     worksheet = workbook['Sheet']
     n_rows = worksheet.max_row
     start = 1

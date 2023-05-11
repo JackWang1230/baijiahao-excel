@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 
 
 def read_excel():
+    print("开始执行:", datetime.now())
     workbook = openpyxl.load_workbook('laoyao-fixed-total_read.xlsx')
     # workbook = openpyxl.load_workbook('kanye-fixed-total_read.xlsx')
     worksheet = workbook['Sheet']
@@ -25,27 +26,27 @@ def read_excel():
         index += 1
         url_list = []
         image_url = i[6]
-        image_url_list = image_url.split(",https")
-        if len(image_url_list) > 1:
-            url_list.append(image_url_list[0])
-            for v in range(1, len(image_url_list)):
-                url_list.append('https' + image_url_list[v])
-        else:
-            url_list.append(image_url_list[0])
+        if image_url is not None:
+            image_url_list = image_url.split(",https")
+            if len(image_url_list) > 1:
+                url_list.append(image_url_list[0])
+                for v in range(1, len(image_url_list)):
+                    url_list.append('https' + image_url_list[v])
+            else:
+                url_list.append(image_url_list[0])
 
-        image_filename = ''
-        for j in range(len(url_list)):
-            response = requests.get(url_list[j])
-            image_filename += str(index + 1) + "-" + str(j) + ".jpeg"
-            with open(os.path.join(fold_name, image_filename), 'wb') as f:
-                f.write(response.content)
+            image_filename = ''
+            for j in range(len(url_list)):
+                response = requests.get(url_list[j])
+                image_filename += str(index + 1) + "-" + str(j) + ".jpeg"
+                with open(os.path.join(fold_name, image_filename), 'wb') as f:
+                    f.write(response.content)
 
-        worksheet.cell(index + 1, 7, image_filename)
-        process = (index - start) / (n_rows - start) * 100
+            worksheet.cell(index + 1, 7, image_filename)
+            process = (index - start) / (n_rows - start) * 100
 
-        print("处理进度:", process, "%")
+            print("处理进度:", process, "%")
 
-    print("开始保存:", datetime.now())
     # workbook.save('kanye_finished.xlsx')
     workbook.save('laoyao_finished.xlsx')
     print("完成保存:", datetime.now())
