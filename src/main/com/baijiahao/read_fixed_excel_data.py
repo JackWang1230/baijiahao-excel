@@ -5,7 +5,8 @@ from datetime import datetime, timedelta
 
 
 def read_excel():
-    workbook = openpyxl.load_workbook('kanye-fixed-total_read.xlsx')
+    workbook = openpyxl.load_workbook('laoyao-fixed-total_read.xlsx')
+    # workbook = openpyxl.load_workbook('kanye-fixed-total_read.xlsx')
     worksheet = workbook['Sheet']
     worksheet.cell(row=1, column=7, value='图片下载路径')
     n_rows = worksheet.max_row
@@ -45,7 +46,8 @@ def read_excel():
         print("处理进度:", process, "%")
 
     print("开始保存:", datetime.now())
-    workbook.save('kanye_finished.xlsx')
+    # workbook.save('kanye_finished.xlsx')
+    workbook.save('laoyao_finished.xlsx')
     print("完成保存:", datetime.now())
 
 

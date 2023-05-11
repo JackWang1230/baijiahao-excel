@@ -4,9 +4,9 @@ from natsort import natsorted
 
 
 def read_excel():
-    workbook = openpyxl.load_workbook('/Users/wangrui/Documents/coding/python/baojiahao/resources/123.xlsx')
-    # workbook = openpyxl.load_workbook(
-    #     '/Users/wangrui/Documents/coding/python/baojiahao/resources/kanye-say-history.xlsx')
+    # workbook = openpyxl.load_workbook('/Users/wangrui/Documents/coding/python/baojiahao/resources/123.xlsx')
+    workbook = openpyxl.load_workbook(
+        '/Users/wangrui/Documents/coding/python/baojiahao/resources/laoyao-say-history.xlsx')
     worksheet = workbook['Sheet']
     n_rows = worksheet.max_row
     start = 1
@@ -21,7 +21,7 @@ def read_excel():
             worksheet.cell(index + 1, 2, fix_read_value)
         elif '万' in total_read:
             fix_read_value = int(total_read.replace('万', '') + '0000')
-            worksheet.cell(index + 1, 4, fix_read_value)
+            worksheet.cell(index + 1, 2, fix_read_value)
         else:
             fix_read_value = int(total_read)
             worksheet.cell(index + 1, 2, fix_read_value)
@@ -39,12 +39,14 @@ def read_excel():
         process = (index - start) / (n_rows - start) * 100
         print("处理进度:", process, "%")
     print("开始保存:", datetime.datetime.now())
-    workbook.save('kanye-fix-total_read.xlsx')
+    # workbook.save('kanye-fix-total_read.xlsx')
+    workbook.save('laoyao-fix-total_read.xlsx')
     print("完成保存:", datetime.datetime.now())
 
 
 def sort_by_total_read():
-    workbook = openpyxl.load_workbook('kanye-fix-total_read.xlsx')
+    workbook = openpyxl.load_workbook('laoyao-fix-total_read.xlsx')
+    # workbook = openpyxl.load_workbook('kanye-fix-total_read.xlsx')
     worksheet = workbook['Sheet']
     sorted_rows = natsorted(worksheet.rows, key=lambda x: x[1].value, reverse=True)
     wb_new = openpyxl.Workbook()
@@ -53,7 +55,8 @@ def sort_by_total_read():
         sheet_new.append([cell.value for cell in row])
 
     print("开始保存:", datetime.datetime.now())
-    wb_new.save('kanye-fixed-total_read.xlsx')
+    # wb_new.save('kanye-fixed-total_read.xlsx')
+    wb_new.save('laoyao-fixed-total_read.xlsx')
     print("完成保存:", datetime.datetime.now())
 
 
